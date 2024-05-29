@@ -2,6 +2,7 @@
 /build
 /dist
 /test
+/ZTD_patch_data
 
 *.spec
 *.log
