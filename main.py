@@ -4,7 +4,6 @@ from fileFolderUI import FileFolderUI
 import utils
 import drive_to_local
 from API import steam_game_api
-import shibuya_tools_api
 
 # pyinstaller --onefile --name 428_Patch_Automatique --icon=./ressource/DreamteamLogo.ico main.py
 
