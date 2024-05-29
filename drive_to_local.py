@@ -9,43 +9,28 @@ TEXT_SNS_FOLDER_DRIVE = "1uubK1tqm4K5RP9KiezJfoPZ86Az5eAiw"
 
 EN_JSON_DRIVE = "1n1U5DqSNdFNG42_PskbLrGtb1QsfL3hmRqBjEfmAucc"
 
-EXPORT_FOLDER_TEST = "F:\\Documents\\traduction_DreamTeam\\428\\export"
-
-OBJECT_FOLDER_TEST = "F:\\Documents\\traduction_DreamTeam\\428\\object"
-
-EXPORT_FOLDER = ".\\export"
-
-OBJECT_FOLDER = ".\\object"
-
-TEST = False
-
-if TEST:
-    EXPORT_FOLDER = EXPORT_FOLDER_TEST
-    OBJECT_FOLDER = OBJECT_FOLDER_TEST
-
-
-SCRIPT_FOLDER = EXPORT_FOLDER + "\\shibuya_desktop_data_core_patch.wad\\script\\en\\to.sns"
-
-EN_JSON_FOLDER = EXPORT_FOLDER + "\\shibuya_desktop_data_core.wad\\localization\\game"
-
 progression_actuelle = 0
 
 
 def replace_every_files_text(instance_worker):
-    for i in range(len(utils.files_names)):
-        name = utils.files_names[i]
+    """for each file, replace text in, if selected"""
+    for i, name in range(utils.files_names):
         if instance_worker.liste_choix_fichiers[i]:
             instance_worker.set_text_progress(name)
-            # google_sheet_api.open_spreadsheet(google_drive_api.get_id_by_name(name))
-            print(name)
-            # list_value_sheet = google_sheet_api.get_sheet(0)
+            print("insertion texte fichier " + name)
             list_value_sheet = googleSheetAPI.get_matrice_sheet(name)
-            replace_text_in_xml_txt(list_value_sheet, name)
+            replace_text_in_xml(list_value_sheet, name)
             incrementer_progression(instance_worker)
 
 
-def replace_text_in_xml_txt(list_value_sheet, name_file):
-    filepath = SCRIPT_FOLDER + "\\" + name_file
+def replace_text_in_xml(list_value_sheet: list[list[str]], name_file: str):
+    """main part to change text in an xml file
+
+    Args:
+        list_value_sheet (list[list[str]]): matrix of string with every value in the sheet
+        name_file (str): name of the file
+    """
+    filepath = "?????????????" + "\\" + name_file
     with open(filepath, 'r', encoding='utf-8') as f:
         data = json.load(f)
 
