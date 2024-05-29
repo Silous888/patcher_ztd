@@ -66,7 +66,7 @@ def replace_text_in_xml_txt(list_value_sheet, name_file):
             json.dump(data, file, indent=4, ensure_ascii=False)
 
 
-def replace_en_json(instance_worker):
+def replace_us_po(instance_worker):
     file_name = "en.json"
     filepath = EN_JSON_FOLDER + "\\" + file_name
     instance_worker.set_text_progress(file_name)
