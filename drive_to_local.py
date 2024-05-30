@@ -2,14 +2,17 @@
 # from API import google_drive_api
 
 import json
+import polib
 import utils
 import googleSheetAPI
 
-TEXT_SNS_FOLDER_DRIVE = "1uubK1tqm4K5RP9KiezJfoPZ86Az5eAiw"
+TEXT_XML_FOLDER_DRIVE: str = "1f-s3R9eeV8mSqRHcJfyJcehyIsm1MSpk"
 
-EN_JSON_DRIVE = "1n1U5DqSNdFNG42_PskbLrGtb1QsfL3hmRqBjEfmAucc"
+US_PO_DRIVE: str = "11P4qp0Lu9be63yWvPZtjQ9ZW7YuqW6sqVR3o7aNgrBM"
 
-progression_actuelle = 0
+progression_actuelle: int = 0
+
+ZTD_PATCH_DATA_FOLDER: str = ".\\ZTD_patch_data\\mod_dlg\\"
 
 
 def replace_every_files_text(instance_worker):
@@ -52,43 +55,29 @@ def replace_text_in_xml(list_value_sheet: list[list[str]], name_file: str):
 
 
 def replace_us_po(instance_worker):
-    file_name = "en.json"
-    filepath = EN_JSON_FOLDER + "\\" + file_name
-    instance_worker.set_text_progress(file_name)
-    list_value_sheet = googleSheetAPI.get_matrice_sheet(file_name)
-
-    with open(filepath, 'r', encoding='utf-8', ) as f:
-        data = json.load(f)
-        for i in range(len(list_value_sheet)):
-            if len(list_value_sheet[i]) <= 3:
-                continue
-            if list_value_sheet[i][0] in data:
-                data[list_value_sheet[i][0]] = convertir_double_slash_en_simple(list_value_sheet[i][3])
-    with open(filepath, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=4, ensure_ascii=False)
-
-
-def convertir_double_slash_en_simple(path):
-    """converti les slash en double slash dans un chaine de caractère,
-    pour éviter les problèmes
-
-    Args:
-        path (str): path windows
-
-    Returns:
-        str: path windows avec des double slash à la place des simples
+    """replace values of us.po with values in the google sheet
     """
-    path = path.replace("\\'", "\'")
-    return path.replace('\\n', '\n')
+    file_name = "us.po"
+    filepath = ZTD_PATCH_DATA_FOLDER + file_name
+    instance_worker.set_text_progress(file_name)
+    list_value_sheet = googleSheetAPI.get_matrice_sheet(US_PO_DRIVE)
+    print(list_value_sheet)
+    po = polib.pofile(filepath)
+    for i, entry in enumerate(po):
+        print(i)
+        print(list_value_sheet[i][2])
+        translated_line = list_value_sheet[i][2]
+        if len(translated_line) == 0:
+            continue
+        translated_line = convert_double_slash_to_slash_n(translated_line)
+
+        entry.msgstr = translated_line
+        po.save()
 
 
-def replace_strange_char(text):
-    list_strange_char = ["001C", "001D", "0017", "0014", "0015", "0019", "001A",
-                         "001B", "0018", "0016", "00A0", "001E", "001F"]
-
-    for char in list_strange_char:
-        text = text.replace(char, f"\\u{char}\"")
-    return text
+def convert_double_slash_to_slash_n(text: str):
+    """convert double slash to slash n"""
+    return text.replace('\\\\', '\n')
 
 
 def incrementer_progression(instance_worker, valeur=1):

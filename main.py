@@ -17,9 +17,9 @@ def process(instance_worker):
     gamepath_directory = steam_game_api.find_game_path("Zero Escape")
 
     # drive_to_local.replace_every_files_text(instance_worker)
-    # drive_to_local.replace_us_po(instance_worker)
+    drive_to_local.replace_us_po(instance_worker)
 
-    # drive_to_local.update_texte_progression(instance_worker, "recompilation")
+    drive_to_local.update_texte_progression(instance_worker, "recompilation")
     ze_ztd_tool.repack_ztd()
     ze_ztd_tool.copy_file_in_gamefolder(gamepath_directory)
 
