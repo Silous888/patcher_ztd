@@ -43,13 +43,13 @@ def get_matrice_sheet(sheet_id):
         try:
             sheet = gc.open_by_key(sheet_id).get_worksheet(0)
         except Exception as e:
-            print(e)
+            print("En attente de token api google sheet...")
             time.sleep(wait_time)
             continue
         try:
             return sheet.get_all_values()
         except Exception as e:
-            print(e)
+            print("En attente de token api google sheet...")
             time.sleep(wait_time)
 
 

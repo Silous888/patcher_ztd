@@ -19,7 +19,7 @@ def process(instance_worker):
     org_pak_folder: str = ".\\ZTD_patch_data\\org_pak\\"
     org_pak: str = "00000000.cfsi"
 
-    if not os.path.isfile(os.path.join(org_pak_folder, org_pak)):
+    if not os.path.exists(os.path.join(org_pak_folder, org_pak)):
         drive_to_local.update_texte_progression(instance_worker, "copie fichier d'origine du jeu...")
         steam_game_api.copy_data_from_steam_game_folder("Zero Escape", org_pak_folder, org_pak, overwrite=False)
 
@@ -32,7 +32,6 @@ def process(instance_worker):
     drive_to_local.update_texte_progression(instance_worker, "recompilation")
     ze_ztd_tool.repack_ztd()
     ze_ztd_tool.copy_file_in_gamefolder(gamepath_directory)
-
 
 # -------------------- Main code -------------------
 if __name__ == "__main__":
