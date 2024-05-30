@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'f:\Documents\Programmation\PublicProject\patcher_428\ihm.ui'
+# Form implementation generated from reading ui file 'f:\Documents\Programmation\PublicProject\patcher_ZTD\ihm.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -53,15 +53,15 @@ class Ui_MainWindow(object):
         self.checkBox_fichiers.setObjectName("checkBox_fichiers")
         self.checkBox_imagesDDS = QtWidgets.QCheckBox(self.centralwidget)
         self.checkBox_imagesDDS.setEnabled(False)
-        self.checkBox_imagesDDS.setGeometry(QtCore.QRect(20, 110, 441, 17))
+        self.checkBox_imagesDDS.setGeometry(QtCore.QRect(20, 170, 441, 17))
         self.checkBox_imagesDDS.setObjectName("checkBox_imagesDDS")
         self.checkBox_imagesZIP = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_imagesZIP.setEnabled(False)
-        self.checkBox_imagesZIP.setGeometry(QtCore.QRect(20, 140, 521, 17))
+        self.checkBox_imagesZIP.setGeometry(QtCore.QRect(20, 110, 521, 17))
+        self.checkBox_imagesZIP.setChecked(True)
         self.checkBox_imagesZIP.setObjectName("checkBox_imagesZIP")
         self.checkBox_videos = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox_videos.setEnabled(False)
-        self.checkBox_videos.setGeometry(QtCore.QRect(20, 170, 501, 20))
+        self.checkBox_videos.setEnabled(True)
+        self.checkBox_videos.setGeometry(QtCore.QRect(20, 140, 501, 20))
         self.checkBox_videos.setObjectName("checkBox_videos")
         self.pushButton_process.raise_()
         self.pushButton_browse.raise_()
@@ -82,7 +82,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "428 patch automatique"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Zero Time Dilemma patch automatique"))
         self.pushButton_process.setText(_translate("MainWindow", "Démarrer"))
         self.pushButton_browse.setText(_translate("MainWindow", "browse"))
         self.label_done.setText(_translate("MainWindow", "Terminé !"))
@@ -91,7 +91,7 @@ class Ui_MainWindow(object):
         self.pushButton_choix_image.setText(_translate("MainWindow", "Choisir images"))
         self.checkBox_fichiers.setText(_translate("MainWindow", "Update tous les fichiers textes"))
         self.checkBox_imagesDDS.setText(_translate("MainWindow", "Update images"))
-        self.checkBox_imagesZIP.setText(_translate("MainWindow", "Update tous  les DDS (images de fond)"))
-        self.checkBox_videos.setText(_translate("MainWindow", "Update les vidéos"))
+        self.checkBox_imagesZIP.setText(_translate("MainWindow", "Update fichier us.po"))
+        self.checkBox_videos.setText(_translate("MainWindow", "Update les images"))
 from fileEdit import FileEdit
 import ressource_rc

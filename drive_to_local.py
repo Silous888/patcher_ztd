@@ -1,11 +1,11 @@
 # from API import google_sheet_api
-# from API import google_drive_api
+from API import google_drive_api
 
-import json
+import xml.etree.ElementTree as ET
 import polib
 import utils
 import googleSheetAPI
-import xml.etree.ElementTree as ET
+
 
 TEXT_XML_FOLDER_DRIVE: str = "1f-s3R9eeV8mSqRHcJfyJcehyIsm1MSpk"
 
@@ -14,6 +14,8 @@ US_PO_DRIVE: str = "11P4qp0Lu9be63yWvPZtjQ9ZW7YuqW6sqVR3o7aNgrBM"
 progression_actuelle: int = 0
 
 ZTD_PATCH_DATA_FOLDER: str = ".\\ZTD_patch_data\\mod_dlg\\"
+
+ZTD_PATCH_DATA_IMAGES_FOLDER: str = ".\\ZTD_patch_data\\patch_res\\"
 
 
 def replace_every_files_text(instance_worker):
@@ -49,6 +51,8 @@ def replace_text_in_xml(list_value_sheet: list[list[str]], name_file: str):
 def replace_us_po(instance_worker):
     """replace values of us.po with values in the google sheet
     """
+    if not instance_worker.choix_patch_zip:
+        return
     file_name = "us.po"
     filepath = ZTD_PATCH_DATA_FOLDER + file_name
     instance_worker.set_text_progress(file_name)
@@ -62,6 +66,19 @@ def replace_us_po(instance_worker):
 
         entry.msgstr = translated_line
         po.save()
+
+
+def download_images(instance_worker):
+    """download every images
+
+    """
+    if not instance_worker.choix_patch_videos:
+        return
+    update_texte_progression(instance_worker, "téléchargement images")
+    images_folder_id: str = "1I7TuGtbxduOTAf_wMohgKopspLZ7-aYR"
+    google_drive_api.download_files_in_folder(images_folder_id,
+                                              ZTD_PATCH_DATA_IMAGES_FOLDER,
+                                              keep_folders=True)
 
 
 def convert_double_slash_to_slash_n(text: str):
