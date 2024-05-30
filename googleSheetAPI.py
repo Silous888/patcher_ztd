@@ -26,7 +26,7 @@ credentials = ServiceAccountCredentials.from_json_keyfile_dict(credentials_info,
 gc = gspread.authorize(credentials)
 
 
-def get_matrice_sheet(nom_sheet):
+def get_matrice_sheet(sheet_id):
     """renvoie la liste de liste de la première page du sheet en paramètre.
     chaque ligne dans la liste de liste sera aussi longue que la position de l'élément le plus éloigné dans la ligne du sheet
 
@@ -39,15 +39,17 @@ def get_matrice_sheet(nom_sheet):
     max_retries = 100  # Nombre maximum de tentatives de requêtes
     wait_time = 5  # Temps d'attente en secondes entre les tentatives
 
-    for i in range(max_retries):
+    for _ in range(max_retries):
         try:
-            sheet = gc.open(nom_sheet).sheet1
-        except:
+            sheet = gc.open_by_key(sheet_id).get_worksheet(0)
+        except Exception as e:
+            print(e)
             time.sleep(wait_time)
             continue
         try:
-            return sheet.get()
-        except:
+            return sheet.get_all_values()
+        except Exception as e:
+            print(e)
             time.sleep(wait_time)
 
 

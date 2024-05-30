@@ -66,7 +66,7 @@ class _Worker(QObject):
     # Initialiser la liste principale
     liste_choix_fichiers = []
     liste_choix_imagesdds = []
-    choix_patch_zip = False
+    choix_patch_zip = True
     choix_patch_videos = False
 
     def __init__(self):
@@ -120,6 +120,8 @@ class _MainWindow(QMainWindow):
 
         self.ui.label_done.hide()
         self.ui.label_process.hide()
+        self.ui.checkBox_imagesDDS.hide()
+        self.ui.pushButton_choix_image.hide()
 
         self.m_thread = QThread()
         self.m_thread.start()
@@ -296,8 +298,8 @@ class _MainWindow(QMainWindow):
         """enable ui when process is done"""
         self.ui.checkBox_fichiers.setEnabled(True)
         # self.ui.checkBox_imagesDDS.setEnabled(True)
-        # self.ui.checkBox_imagesZIP.setEnabled(True)
-        # self.ui.checkBox_videos.setEnabled(True)
+        self.ui.checkBox_imagesZIP.setEnabled(True)
+        self.ui.checkBox_videos.setEnabled(True)
         self.ui.label_process.hide()
         self.ui.label_done.show()
         self.ui.pushButton_process.setEnabled(True)
