@@ -11,8 +11,9 @@ logging.basicConfig(
 )
 
 
-files_names = []
-total_progress = 0
+files_names: list[str] = []
+files_id: list[str] = []
+total_progress: int = 0
 
 
 def get_valeur_progression(actuelle, total):
@@ -53,9 +54,11 @@ def etats_liste(liste_de_listes):
 def import_names_files():
     global files_names
     global total_progress
-    TEXT_SNS_FOLDER_DRIVE = "1uubK1tqm4K5RP9KiezJfoPZ86Az5eAiw"
-    list_sheet_files = google_drive_api.list_files_in_folder(TEXT_SNS_FOLDER_DRIVE)
+    TEXT_XML_FOLDER_DRIVE: str = "1f-s3R9eeV8mSqRHcJfyJcehyIsm1MSpk"
+    list_sheet_files = google_drive_api.list_files_in_folder(TEXT_XML_FOLDER_DRIVE)
+    list_sheet_files.sort(key=lambda x: x[0])
     for sublist in list_sheet_files:
-        files_names.append(sublist[0])
-    files_names.sort()
+        if sublist[2] == "application/vnd.google-apps.spreadsheet":
+            files_names.append(sublist[0])
+            files_id.append(sublist[1])
     total_progress = len(files_names)
